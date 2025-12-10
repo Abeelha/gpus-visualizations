@@ -2,6 +2,10 @@
 
 Interactive data visualization portal for exploring GPU benchmarks, performance comparisons, and market analysis. Built with [Observable Framework](https://observablehq.com/framework/) and [PortalJS](https://www.portaljs.com/).
 
+## Live Demo
+
+**[gpus.portaljs.com](https://gpus.portaljs.com)**
+
 ## Dashboards
 
 ### GPU Performance Comparison
