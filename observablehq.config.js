@@ -1,25 +1,21 @@
-// See https://observablehq.com/framework/config for documentation.
 export default {
-  // The app’s title; used in the sidebar and webpage titles.
-  title: "PortalJS Data App",
-
-  // The pages and sections in the sidebar. If you don’t specify this option,
-  // all pages will be listed in alphabetical order. Listing pages explicitly
-  // lets you organize them into sections and have unlisted pages.
-  // pages: [
-  //   {
-  //     name: "Examples",
-  //     pages: [
-  //       {name: "Dashboard", path: "/example-dashboard"},
-  //       {name: "Report", path: "/example-report"}
-  //     ]
-  //   }
-  // ],
-
-  // Content to add to the head of the page, e.g. for a favicon:
-  head: '<link rel="icon" href="observable.png" type="image/png" sizes="32x32">',
-
-  // The path to the source root.
+  title: "GPU Performance & Pricing Data Portal",
+  pages: [
+    {name: "Home", path: "/"},
+    {name: "GPU Performance", path: "/gpu-performance"},
+    {name: "Price vs Performance", path: "/price-performance"},
+    {name: "NVIDIA Releases", path: "/nvidia-releases"}
+  ],
+  head: `
+  <link rel="icon" href="observable.png" type="image/png" sizes="32x32">
+  <script>
+    sessionStorage.setItem("observablehq-sidebar", "false");
+  </script>
+  <script type="module">
+    import { inject } from 'https://esm.sh/@vercel/analytics@1.5.0';
+    inject();
+  </script>
+  `,
   root: "src",
 
   // Some additional configuration options and their defaults:
@@ -35,5 +31,5 @@ export default {
   // preserveExtension: false, // drop .html from URLs
   // preserveIndex: false, // drop /index from URLs
   style: "style.css",
-  footer: "Built with PortalJS and Observable Framework.",
+  footer: 'Built with <a href="https://www.portaljs.com/" target="_blank" rel="noopener noreferrer">PortalJS</a> and Observable Framework.',
 };
