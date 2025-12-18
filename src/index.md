@@ -4,14 +4,12 @@ toc: false
 
 <div class="portaljs-banner">
   <div class="portaljs-banner-content">
-    <span class="portaljs-banner-icon">🌀</span>
     <div class="portaljs-banner-text">
-      <p class="portaljs-banner-title">Create beautiful data portals with PortalJS</p>
-      <p class="portaljs-banner-description">The open-source framework for building data catalogs, dashboards, and visualizations.</p>
+      <p class="portaljs-banner-title">Create beautiful data portals with PortalJS 🌀</p>
     </div>
   </div>
-  <a href="https://www.portaljs.com/" target="_blank" rel="noopener noreferrer" class="portaljs-banner-cta">
-    Get Started Free <span class="portaljs-banner-cta-arrow">→</span>
+  <a href="https://www.portaljs.com/" target="_blank" class="portaljs-banner-cta">
+    Get started free
   </a>
 </div>
 
@@ -99,8 +97,9 @@ const brandCounts = d3.rollups(
       height: 300,
       marginLeft: 180,
       marginRight: 40,
+      style: { background: "transparent" },
       x: {
-        label: "G3Dmark Score",
+        label: "G3Dmark Score →",
         grid: true
       },
       y: {
@@ -116,6 +115,7 @@ const brandCounts = d3.rollups(
           y: "gpuName",
           fill: "brand",
           sort: {y: "-x"},
+          rx: 4,
           tip: true,
           title: d => `${d.gpuName}\nScore: ${d.G3Dmark.toLocaleString()}\nPrice: ${d.price ? '$' + d.price.toFixed(2) : 'N/A'}`
         }),
@@ -129,8 +129,9 @@ const brandCounts = d3.rollups(
       width,
       height: 300,
       marginLeft: 80,
+      style: { background: "transparent" },
       x: {
-        label: "Number of GPUs",
+        label: "Number of GPUs →",
         grid: true
       },
       y: {
@@ -146,6 +147,7 @@ const brandCounts = d3.rollups(
           y: "brand",
           fill: "brand",
           sort: {y: "-x"},
+          rx: 4,
           tip: true
         }),
         Plot.ruleX([0])
@@ -162,3 +164,8 @@ const brandCounts = d3.rollups(
 - **Price Data**: Current market pricing from major retailers
 - **Forecasts**: Statista market projections
 - **Release History**: NVIDIA official product database
+
+<div class="dashboard-footer">
+  <span>Built with <a href="https://www.portaljs.com/">PortalJS</a> and Observable Framework</span>
+  <span>Data updated regularly</span>
+</div>

@@ -2,6 +2,17 @@
 toc: false
 ---
 
+<div class="portaljs-banner">
+  <div class="portaljs-banner-content">
+    <div class="portaljs-banner-text">
+      <p class="portaljs-banner-title">Create beautiful data portals with PortalJS 🌀</p>
+    </div>
+  </div>
+  <a href="https://www.portaljs.com/" target="_blank" class="portaljs-banner-cta">
+    Get started free
+  </a>
+</div>
+
 ```js
 const apiScores = FileAttachment("data/gpu_api_scores.csv").csv({typed: true});
 const benchmarks = FileAttachment("data/gpu_benchmarks.csv").csv({typed: true});
@@ -64,28 +75,59 @@ const colorMap = { "NVIDIA": "#76b900", "AMD": "#ed1c24", "Intel": "#0071c5" };
 ```js
 display(html`<div class="dashboard-layout">
   <div class="sidebar">
-    <div class="stat-card">
-      <div class="stat-label">Top OpenCL</div>
-      <div class="stat-value" style="color: #3b82f6; font-size: 1rem;">${topOpenCLScore?.device.substring(0, 20)}</div>
-      <div class="stat-change">${topOpenCLScore?.opencl.toLocaleString()}</div>
-    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></span>
+          <span class="stat-card-label">Top OpenCL</span>
+        </div>
+        <div class="stat-card-content">
+          <div class="stat-card-value" style="font-size: 16px;">${topOpenCLScore?.device.substring(0, 18)}</div>
+          <div class="stat-card-subvalue" style="color: var(--color-accent-blue);">${topOpenCLScore?.opencl.toLocaleString()} pts</div>
+        </div>
+      </div>
 
-    <div class="stat-card">
-      <div class="stat-label">Top Vulkan</div>
-      <div class="stat-value" style="color: #8b5cf6; font-size: 1rem;">${topVulkanScore?.device.substring(0, 20)}</div>
-      <div class="stat-change">${topVulkanScore?.vulkan.toLocaleString()}</div>
-    </div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></span>
+          <span class="stat-card-label">Top Vulkan</span>
+        </div>
+        <div class="stat-card-content">
+          <div class="stat-card-value" style="font-size: 16px;">${topVulkanScore?.device.substring(0, 18)}</div>
+          <div class="stat-card-subvalue" style="color: var(--color-accent-purple);">${topVulkanScore?.vulkan.toLocaleString()} pts</div>
+        </div>
+      </div>
 
-    <div class="stat-card">
-      <div class="stat-label">GPUs Analyzed</div>
-      <div class="stat-value">${totalGpus}</div>
-      <div class="stat-change">NVIDIA & AMD</div>
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>
+          <span class="stat-card-label">GPUs Analyzed</span>
+        </div>
+        <div class="stat-card-content">
+          <div class="stat-card-value">${totalGpus}</div>
+          <div class="stat-card-subvalue">NVIDIA & AMD</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-card-header">
+          <span class="stat-card-icon"><svg viewBox="0 0 24 24"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg></span>
+          <span class="stat-card-label">Brands</span>
+        </div>
+        <div class="stat-card-content">
+          <div class="stat-card-value">${brandStats.length}</div>
+          <div class="stat-card-subvalue">Compared</div>
+        </div>
+      </div>
     </div>
 
     <div class="insights">
-      <h4>Key Insights</h4>
-      <ul>
-        <li>RTX 3090 Ti leads overall performance</li>
+      <div class="insights-header">
+        <span class="insights-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+        <h4 class="insights-title">Key Insights</h4>
+      </div>
+      <ul class="insights-list">
+        <li>RTX 4090 leads overall performance</li>
         <li>NVIDIA dominates high-end segment</li>
         <li>AMD competitive in mid-range value</li>
         <li>Workstation GPUs optimized for compute</li>
@@ -491,16 +533,17 @@ display(html`<div class="dashboard-layout">
             height: isMobile ? 200 : 220,
             marginLeft: isMobile ? 60 : 70,
             marginRight: isMobile ? 100 : 120,
+            style: { background: "transparent" },
             x: { label: "Avg G3Dmark Score", grid: true },
             y: { label: null },
             marks: [
               Plot.barX(brandStats, {
-                x: "avgScore", y: "brand", fill: d => colorMap[d.brand] || "#888", sort: {y: "-x"}, rx: 4
+                x: "avgScore", y: "brand", fill: d => colorMap[d.brand] || "#888", sort: {y: "-x"}, rx: 4, tip: true
               }),
               Plot.text(brandStats, {
                 x: "avgScore", y: "brand",
                 text: d => Math.round(d.avgScore).toLocaleString() + " (" + d.count + " GPUs)",
-                dx: 5, textAnchor: "start", fontSize: 10, fill: "#666"
+                dx: 5, textAnchor: "start", fontSize: 10, fill: "#79716B"
               }),
               Plot.ruleX([0])
             ]
@@ -518,16 +561,17 @@ display(html`<div class="dashboard-layout">
             height: isMobile ? 240 : 260,
             marginLeft: isMobile ? 120 : 140,
             marginRight: isMobile ? 50 : 60,
+            style: { background: "transparent" },
             x: { label: "Avg G3Dmark Score", grid: true },
             y: { label: null },
             marks: [
               Plot.barX(categoryStats, {
-                x: "avgScore", y: "category", fill: (d, i) => colors[i % colors.length], sort: {y: "-x"}, rx: 4
+                x: "avgScore", y: "category", fill: (d, i) => colors[i % colors.length], sort: {y: "-x"}, rx: 4, tip: true
               }),
               Plot.text(categoryStats, {
                 x: "avgScore", y: "category",
                 text: d => Math.round(d.avgScore).toLocaleString(),
-                dx: 5, textAnchor: "start", fontSize: 10, fill: "#666"
+                dx: 5, textAnchor: "start", fontSize: 10, fill: "#79716B"
               }),
               Plot.ruleX([0])
             ]
@@ -536,5 +580,10 @@ display(html`<div class="dashboard-layout">
       </div>
     </div>
   </div>
+</div>
+
+<div class="dashboard-footer">
+  <span>Built with <a href="https://www.portaljs.com/">PortalJS</a> and Observable Framework</span>
+  <span>Sources: <a href="https://www.techpowerup.com/gpu-specs/" target="_blank">TechPowerUp</a>, <a href="https://www.passmark.com/" target="_blank">PassMark</a></span>
 </div>`)
 ```
